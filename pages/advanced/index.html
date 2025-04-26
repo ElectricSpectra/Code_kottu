@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathMinds - Advanced Math</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>MathMinds</h1>
+            <p class="subtitle">Advanced Math for High School</p>
+            <a href="../../index.html" class="back-link">← Back to Home</a>
+        </header>
+
+        <div class="container">
+            <!-- Welcome Screen -->
+            <div id="welcome-screen" class="screen active">
+                <h2>Advanced Math Challenge</h2>
+                <p>Test your knowledge of equations, geometry, and more!</p>
+                
+                <div class="player-form">
+                    <input type="text" id="player-name" placeholder="Enter your name" maxlength="20">
+                    
+                    <div class="topic-selector">
+                        <h3>Select Topics</h3>
+                        <div class="topic-checkboxes">
+                            <label class="topic-checkbox">
+                                <input type="checkbox" value="linear-equations" checked>
+                                <span class="checkbox-label">Linear Equations</span>
+                            </label>
+                            <label class="topic-checkbox">
+                                <input type="checkbox" value="quadratic-equations" checked>
+                                <span class="checkbox-label">Quadratic Equations</span>
+                            </label>
+                            <label class="topic-checkbox">
+                                <input type="checkbox" value="areas" checked>
+                                <span class="checkbox-label">Areas</span>
+                            </label>
+                            <label class="topic-checkbox">
+                                <input type="checkbox" value="volumes" checked>
+                                <span class="checkbox-label">Volumes</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="difficulty-selector">
+                        <h3>Select Difficulty</h3>
+                        <div class="difficulty-buttons">
+                            <button class="difficulty-btn active" data-difficulty="easy">
+                                <span class="icon">🔰</span>
+                                <span class="label">Easy</span>
+                                <span class="desc">Basic concepts</span>
+                            </button>
+                            <button class="difficulty-btn" data-difficulty="medium">
+                                <span class="icon">⭐</span>
+                                <span class="label">Medium</span>
+                                <span class="desc">Intermediate problems</span>
+                            </button>
+                            <button class="difficulty-btn" data-difficulty="hard">
+                                <span class="icon">🔥</span>
+                                <span class="label">Hard</span>
+                                <span class="desc">Complex problems</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-options">
+                        <div class="option-group">
+                            <label for="question-count">Number of Questions:</label>
+                            <input type="range" id="question-count" min="5" max="20" value="10">
+                            <span id="question-count-value">10</span>
+                        </div>
+                        <div class="option-group">
+                            <label for="time-per-question">Time per Question (seconds):</label>
+                            <input type="range" id="time-per-question" min="10" max="60" value="30">
+                            <span id="time-per-question-value">30</span>
+                        </div>
+                    </div>
+
+                    <button id="start-game" class="primary-button">Start Challenge</button>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="game-screen" class="screen">
+                <div class="game-header">
+                    <div class="game-info">
+                        <div class="question-counter">Question <span id="current-question">1</span>/<span id="total-questions">10</span></div>
+                        <div class="score">Score: <span id="score">0</span></div>
+                    </div>
+                    <div class="timer">
+                        <div class="timer-bar">
+                            <div class="timer-progress"></div>
+                        </div>
+                        <div class="timer-text"><span id="timer">30</span>s</div>
+                    </div>
+                </div>
+
+                <div class="hint-container">
+                    <button id="show-hint" class="hint-button">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <div id="hint-text"></div>
+                        <div id="hint-formula" class="hint-formula"></div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question" id="question-text"></div>
+                    <div id="figure-container" class="figure-container"></div>
+                    
+                    <div class="answer-input">
+                        <div id="answer-fields"></div>
+                        <button id="submit-answer" class="primary-button">Submit</button>
+                    </div>
+                </div>
+
+                <div id="feedback" class="feedback"></div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="screen">
+                <h2>Challenge Complete!</h2>
+                
+                <div class="results-summary">
+                    <div class="final-score">
+                        <div class="score-circle">
+                            <span id="final-score">0</span>
+                            <span class="max-score">/100</span>
+                        </div>
+                        <p>Final Score</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Correct Answers</span>
+                            <span id="correct-answers" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Incorrect Answers</span>
+                            <span id="incorrect-answers" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Hints Used</span>
+                            <span id="hints-used" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="play-again" class="primary-button">Play Again</button>
+                    <button id="view-leaderboard" class="secondary-button">View Leaderboard</button>
+                </div>
+            </div>
+
+            <!-- Leaderboard Screen -->
+            <div id="leaderboard-screen" class="screen">
+                <h2>Leaderboard</h2>
+                
+                <div class="leaderboard-filters">
+                    <select id="leaderboard-difficulty">
+                        <option value="all">All Difficulties</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                
+                <div class="leaderboard">
+                    <div class="leaderboard-header">
+                        <div class="rank">Rank</div>
+                        <div class="name">Name</div>
+                        <div class="score">Score</div>
+                        <div class="difficulty">Difficulty</div>
+                    </div>
+                    <div id="leaderboard-entries"></div>
+                </div>
+                
+                <button id="back-to-home" class="secondary-button">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 

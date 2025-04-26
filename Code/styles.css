@@ -522,3 +522,132 @@ body {
         padding: 0.8rem;
     }
 }
+
+/* End Game Screen */
+.end-game-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.end-game-stats {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+}
+
+.end-game-stats p {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.end-game-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* Medium Difficulty Animations */
+.animation-container.medium {
+    padding: 2rem;
+}
+
+.number-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.number-detail {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.digit {
+    display: inline-block;
+    padding: 0.2rem 0.4rem;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 4px;
+    margin: 0 0.2rem;
+}
+
+/* Hard Difficulty Animations */
+.animation-container.hard {
+    padding: 2rem;
+}
+
+.number-system {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.place-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+}
+
+.number-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.number-breakdown span {
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Animation Enhancements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.medium .number-group {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.hard .number-breakdown span {
+    opacity: 0;
+    animation: scaleIn 0.3s ease-out forwards;
+}
+
+.hard .number-breakdown span:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.hard .number-breakdown span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.hard .number-breakdown span:nth-child(3) {
+    animation-delay: 0.3s;
+}

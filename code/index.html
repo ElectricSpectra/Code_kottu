@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Mind - Block Arithmetic (Limited Blocks)</title> <!-- Updated Title -->
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            padding: 20px; /* Add some padding for smaller screens */
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px; /* Prevent container from getting too wide */
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .problem-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            margin-bottom: 20px;
+            min-height: 150px; /* Adjust as needed based on block size */
+            gap: 10px; /* Add gap for wrapped items */
+        }
+
+        .operand-container {
+            border: 1px dashed #ccc;
+            padding: 10px;
+            /* Removed fixed margin, using gap in parent */
+            min-width: 100px;
+            min-height: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start; /* Align wrapped blocks to top */
+            gap: 4px; /* Space between blocks inside container */
+            flex-basis: 150px; /* Allow containers to grow but have a base size */
+            flex-grow: 1;
+            /* Added for potentially better centering if needed */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .operator-symbol,
+        .equals-symbol {
+            font-size: 2em;
+            font-weight: bold;
+            /* margin: 0 15px; */ /* Replaced by gap in parent */
+            color: #555;
+            flex-shrink: 0; /* Prevent symbols from shrinking */
+        }
+
+        #answer {
+            width: 80px;
+            padding: 10px;
+            font-size: 1.5em;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding/border in width */
+        }
+
+        /* --- Original Block Styles --- */
+        .block {
+            display: inline-block; /* Or flex */
+            border: 1px solid #555;
+            box-sizing: border-box;
+            /* margin: 2px; */ /* Replaced by gap in parent (.operand-container or .legend-item) */
+        }
+
+        .hundreds-block {
+            width: 50px;
+            height: 50px;
+            background-color: #e74c3c; /* Red */
+        }
+
+        .tens-block {
+            width: 10px;
+            height: 50px;
+            background-color: #3498db; /* Blue */
+        }
+
+        .ones-block {
+            width: 10px;
+            height: 10px;
+            background-color: #f1c40f; /* Yellow */
+        }
+        /* --- End Original Block Styles --- */
+
+        .controls {
+             margin-bottom: 15px; /* Space above feedback */
+        }
+
+        .controls button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #2ecc71; /* Green */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #27ae60;
+        }
+
+        #feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 20px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        #score {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* --- Legend Styles --- */
+        .legend {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            text-align: left; /* Align legend text left */
+        }
+
+        .legend h3 {
+             margin-top: 0;
+             margin-bottom: 10px;
+             font-size: 1.1em;
+             color: #444;
+             text-align: center; /* Center the heading */
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center; /* Vertically align block and text */
+            margin-bottom: 8px; /* Space between legend items */
+            gap: 8px; /* Space between block and text */
+            justify-content: center; /* Center items within the flex container */
+        }
+
+         /* Use existing block styles, but ensure they don't have extra margins */
+        .legend-item .block {
+            margin: 0; /* Remove margin specific to legend blocks */
+            flex-shrink: 0; /* Prevent block from shrinking */
+        }
+
+        .legend-item span {
+            font-size: 0.95em;
+            color: #333;
+        }
+        /* --- End Legend Styles --- */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Mind - Block Arithmetic (Limited Blocks)</h1>
+
+        <div class="problem-area">
+            <div id="operand1" class="operand-container">
+                <!-- Blocks for first number will go here -->
+            </div>
+            <span id="operator" class="operator-symbol">?</span>
+            <div id="operand2" class="operand-container">
+                <!-- Blocks for second number will go here -->
+            </div>
+            <span class="equals-symbol">=</span>
+            <input type="number" id="answer" placeholder="?" aria-label="Your answer">
+        </div>
+
+        <div class="controls">
+            <button id="check-btn">Check Answer</button>
+            <button id="next-btn">New Question</button>
+        </div>
+
+        <div id="feedback"></div>
+        <div id="score">Score: 0</div>
+
+        <!-- === ORIGINAL LEGEND SECTION === -->
+        <div class="legend">
+            <h3>Block Key</h3>
+            <div class="legend-item">
+                <div class="block hundreds-block"></div>
+                <span>= 100 (Hundreds)</span>
+            </div>
+            <div class="legend-item">
+                <div class="block tens-block"></div>
+                <span>= 10 (Tens)</span>
+            </div>
+            <div class="legend-item">
+                <div class="block ones-block"></div>
+                <span>= 1 (Ones)</span>
+            </div>
+        </div>
+        <!-- === END LEGEND SECTION === -->
+
+    </div>
+
+    <script>
+        const operand1Container = document.getElementById('operand1');
+        const operand2Container = document.getElementById('operand2');
+        const operatorSpan = document.getElementById('operator');
+        const answerInput = document.getElementById('answer');
+        const checkButton = document.getElementById('check-btn');
+        const nextButton = document.getElementById('next-btn');
+        const feedbackDiv = document.getElementById('feedback');
+        const scoreDiv = document.getElementById('score');
+
+        let currentOperand1 = 0;
+        let currentOperand2 = 0;
+        let currentOperator = '+';
+        let correctAnswer = 0;
+        let score = 0;
+
+        function createBlockElement(type) {
+            const block = document.createElement('div');
+            block.classList.add('block', `${type}-block`);
+            block.setAttribute('aria-label', `${type} block`);
+            block.setAttribute('role', 'img');
+            return block;
+        }
+
+        function displayBlocks(number, containerElement) {
+            containerElement.innerHTML = '';
+
+            if (number < 0) { // Should ideally not happen with generation logic
+                containerElement.textContent = "Error: Negative number.";
+                return;
+            }
+            if (number === 0) {
+                 // containerElement.textContent = "Zero";
+                 return;
+            }
+
+            let remaining = number;
+
+            const hundreds = Math.floor(remaining / 100);
+            remaining %= 100;
+            for (let i = 0; i < hundreds; i++) containerElement.appendChild(createBlockElement('hundreds'));
+
+            const tens = Math.floor(remaining / 10);
+            remaining %= 10;
+            for (let i = 0; i < tens; i++) containerElement.appendChild(createBlockElement('tens'));
+
+            const ones = remaining;
+            for (let i = 0; i < ones; i++) containerElement.appendChild(createBlockElement('ones'));
+        }
+
+        function generateRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateQuestion() {
+            const maxOperandValue = 199; // Allow operands up to 199 initially
+            const maxResultLimit = 199; // Keep overall result reasonable
+            const maxBlocksPerKind = 7;  // **** NEW CONSTRAINT ****
+            const operators = ['+', '-'];
+
+            let op1, op2, op, tempOp1, tempOp2;
+            let needsRegeneration = false;
+
+            do {
+                needsRegeneration = false; // Reset flag for each attempt
+
+                // 1. Generate Candidate Operands and Operator
+                op1 = generateRandomNumber(1, maxOperandValue);
+                op2 = generateRandomNumber(1, maxOperandValue);
+                op = operators[Math.floor(Math.random() * operators.length)];
+
+                // Use temporary variables for checks that might involve swapping
+                tempOp1 = op1;
+                tempOp2 = op2;
+
+                // 2. Ensure Subtraction Order (op1 >= op2)
+                if (op === '-' && tempOp1 < tempOp2) {
+                    [tempOp1, tempOp2] = [tempOp2, tempOp1]; // Swap
+                }
+
+                // 3. Check Addition Result Limit
+                if (op === '+' && (tempOp1 + tempOp2 > maxResultLimit)) {
+                    needsRegeneration = true;
+                }
+
+                // 4. Check Block Count Constraint (Only if other checks pass)
+                if (!needsRegeneration) {
+                    const op1_ones = tempOp1 % 10;
+                    const op1_tens = Math.floor(tempOp1 / 10) % 10;
+                    const op1_hundreds = Math.floor(tempOp1 / 100);
+                    const op2_ones = tempOp2 % 10;
+                    const op2_tens = Math.floor(tempOp2 / 10) % 10;
+                    const op2_hundreds = Math.floor(tempOp2 / 100);
+
+                    if ((op1_hundreds + op2_hundreds > maxBlocksPerKind) ||
+                        (op1_tens + op2_tens > maxBlocksPerKind) ||
+                        (op1_ones + op2_ones > maxBlocksPerKind))
+                    {
+                        needsRegeneration = true;
+                    }
+                     // Add a check to prevent trivial problems like 0 + X or X - 0 if desired
+                     // (Although 0 won't be generated by generateRandomNumber(1, maxOperandValue))
+                     // if (tempOp1 === 0 || tempOp2 === 0) {
+                     //     needsRegeneration = true;
+                     // }
+                }
+
+            // Loop until a valid pair meeting all constraints is found
+            } while (needsRegeneration);
+
+
+            // 5. Assign Final Values
+            currentOperand1 = tempOp1;
+            currentOperand2 = tempOp2;
+            currentOperator = op;
+
+            // 6. Calculate Correct Answer
+            if (currentOperator === '+') {
+                correctAnswer = currentOperand1 + currentOperand2;
+            } else { // Operator is '-'
+                correctAnswer = currentOperand1 - currentOperand2;
+            }
+
+            // --- Debugging ---
+            // console.log(`Generated: ${currentOperand1} ${currentOperator} ${currentOperand2} = ${correctAnswer}`);
+            // const h1=Math.floor(currentOperand1 / 100), t1=Math.floor(currentOperand1 / 10) % 10, o1=currentOperand1 % 10;
+            // const h2=Math.floor(currentOperand2 / 100), t2=Math.floor(currentOperand2 / 10) % 10, o2=currentOperand2 % 10;
+            // console.log(`Blocks H:${h1+h2}, T:${t1+t2}, O:${o1+o2}`);
+            // ---------------
+
+
+            // 7. Display the blocks and operator
+            displayBlocks(currentOperand1, operand1Container);
+            displayBlocks(currentOperand2, operand2Container);
+            operatorSpan.textContent = currentOperator;
+
+            // 8. Clear previous answer and feedback
+            answerInput.value = '';
+            feedbackDiv.textContent = '';
+            feedbackDiv.className = ''; // Remove feedback class
+            answerInput.focus(); // Focus on input field
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(answerInput.value, 10);
+
+            if (isNaN(userAnswer)) {
+                feedbackDiv.textContent = "Please enter a number.";
+                feedbackDiv.className = 'incorrect';
+                return;
+            }
+
+            if (userAnswer === correctAnswer) {
+                feedbackDiv.textContent = "Correct! 🎉";
+                feedbackDiv.className = 'correct';
+                score++;
+                scoreDiv.textContent = `Score: ${score}`;
+            } else {
+                feedbackDiv.textContent = `Try Again. The correct answer was ${correctAnswer}.`;
+                feedbackDiv.className = 'incorrect';
+            }
+        }
+
+        // Event Listeners
+        checkButton.addEventListener('click', checkAnswer);
+        nextButton.addEventListener('click', generateQuestion);
+
+        // Allow pressing Enter to check answer
+        answerInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent default form submission behavior
+                checkAnswer();
+            }
+        });
+
+        // Initialisation: Generate the first question when the page loads
+        generateQuestion();
+    </script>
+</body>
+</html>

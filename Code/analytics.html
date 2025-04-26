@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Minds Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="analytics-container">
+        <!-- Header Section -->
+        <header class="analytics-header">
+            <h1>Performance Analytics</h1>
+            <div class="time-filter">
+                <label for="time-range">Time Range:</label>
+                <select id="time-range">
+                    <option value="all">All Time</option>
+                    <option value="month">Last Month</option>
+                    <option value="week">Last Week</option>
+                    <option value="day">Last 24 Hours</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Summary Statistics Section -->
+        <section class="summary-stats">
+            <div class="stat-card">
+                <i class="fas fa-question-circle"></i>
+                <div class="stat-content">
+                    <h3>Total Questions</h3>
+                    <p id="total-questions">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <div class="stat-content">
+                    <h3>Average Score</h3>
+                    <p id="average-score">0.0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-bullseye"></i>
+                <div class="stat-content">
+                    <h3>Accuracy Rate</h3>
+                    <p id="accuracy-rate">0%</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div class="stat-content">
+                    <h3>Average Time</h3>
+                    <p id="average-time">0s</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Streaks Section -->
+        <section class="streaks-section">
+            <div class="streak-card">
+                <h3>Current Streak</h3>
+                <div class="streak-display">
+                    <i class="fas fa-fire"></i>
+                    <span id="current-streak">0</span>
+                </div>
+            </div>
+            <div class="streak-card">
+                <h3>Highest Streak</h3>
+                <div class="streak-display">
+                    <i class="fas fa-trophy"></i>
+                    <span id="highest-streak">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <!-- Answer Distribution -->
+            <div class="chart-container">
+                <canvas id="accuracy-chart"></canvas>
+            </div>
+
+            <!-- Time vs Accuracy -->
+            <div class="chart-container">
+                <canvas id="time-chart"></canvas>
+            </div>
+
+            <!-- Category Performance -->
+            <div class="chart-container">
+                <canvas id="category-chart"></canvas>
+            </div>
+
+            <!-- Difficulty Performance -->
+            <div class="chart-container">
+                <canvas id="difficulty-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Progress Chart -->
+        <section class="progress-section">
+            <div class="chart-container full-width">
+                <canvas id="progress-chart"></canvas>
+            </div>
+        </section>
+
+        <!-- Milestones Section -->
+        <section class="milestones-section">
+            <h2>Achievements & Milestones</h2>
+            <div id="milestones-list" class="milestones-grid">
+                <!-- Milestones will be dynamically added here -->
+            </div>
+        </section>
+    </div>
+
+    <script src="analytics.js"></script>
+    <script src="analytics-ui.js"></script>
+</body>
+</html> 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen">
+            <h1>Math Quiz Game</h1>
+            <div class="button-group">
+                <button id="start-game" class="btn btn-primary">Start Game</button>
+                <button id="show-analytics" class="btn btn-secondary">View Analytics</button>
+                <button id="show-leaderboard" class="btn btn-secondary">Leaderboard</button>
+            </div>
+        </div>
+
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="screen" style="display: none;">
+            <h2>Game Setup</h2>
+            <div class="setup-form">
+                <div class="form-group">
+                    <label for="player-name">Your Name:</label>
+                    <input type="text" id="player-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Difficulty:</label>
+                    <div class="difficulty-buttons">
+                        <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+                        <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+                        <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Operations:</label>
+                    <div class="operations-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="operation-checkbox" value="addition"> Addition
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="operation-checkbox" value="subtraction"> Subtraction
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="operation-checkbox" value="multiplication"> Multiplication
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="operation-checkbox" value="division"> Division
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="question-count">Number of Questions: <span id="question-count-value">10</span></label>
+                    <input type="range" id="question-count" min="5" max="20" value="10">
+                </div>
+
+                <div class="form-group">
+                    <label for="time-per-question">Time per Question (seconds): <span id="time-per-question-value">20</span></label>
+                    <input type="range" id="time-per-question" min="10" max="60" value="20">
+                </div>
+
+                <button id="start-quiz" class="btn btn-primary" disabled>Start Quiz</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen" style="display: none;">
+            <div class="game-header">
+                <div id="question-number">Question 1 of 10</div>
+                <div class="score">Score: <span id="score-value">0</span></div>
+            </div>
+
+            <div class="timer">
+                <div class="timer-bar">
+                    <div class="timer-progress"></div>
+                </div>
+                <div class="timer-text">20s</div>
+            </div>
+
+            <div class="question-container">
+                <div id="question-text" class="question"></div>
+                <form id="answer-form" class="answer-form">
+                    <input type="number" id="answer" required>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div class="feedback"></div>
+                <div class="explanation-container" style="display: none;">
+                    <div class="explanation-header">
+                        <i class="explanation-icon">💡</i>
+                        <span>Solution Explanation</span>
+                    </div>
+                    <div class="explanation-content"></div>
+                    <div class="explanation-controls">
+                        <div class="auto-next-container">
+                            <button id="next-with-timer" class="btn btn-primary">
+                                Next Question (<span id="next-timer">30</span>s)
+                            </button>
+                            <button id="disable-timer" class="btn btn-secondary">
+                                Disable Auto-Next
+                            </button>
+                        </div>
+                        <button id="next-question" class="btn btn-primary" style="display: none;">
+                            Next Question
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Screen -->
+        <div id="analytics-screen" class="screen" style="display: none;">
+            <h2>Performance Analytics</h2>
+            
+            <div class="user-selection">
+                <label for="user-select">Select User:</label>
+                <select id="user-select" class="form-control">
+                    <option value="">Select a user</option>
+                </select>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <h3>Total Questions</h3>
+                    <p id="total-questions">0</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Average Accuracy</h3>
+                    <p id="average-accuracy">0%</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Average Time</h3>
+                    <p id="average-time">0s</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Total Sessions</h3>
+                    <p id="total-sessions">0</p>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-box">
+                    <canvas id="performance-chart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="skills-chart"></canvas>
+                </div>
+            </div>
+
+            <button onclick="showScreen('home')" class="btn btn-secondary">Back to Home</button>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboard-screen" class="screen" style="display: none;">
+            <h2>Leaderboard</h2>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Score</th>
+                        <th>Accuracy</th>
+                        <th>Difficulty</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="showScreen('home')" class="btn btn-secondary">Back to Home</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

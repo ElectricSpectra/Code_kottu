@@ -1,0 +1,194 @@
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn var(--transition-normal) ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut var(--transition-normal) ease forwards;
+}
+
+.slide-up {
+  animation: slideUp var(--transition-normal) ease forwards;
+}
+
+.slide-down {
+  animation: slideDown var(--transition-normal) ease forwards;
+}
+
+.pulse {
+  animation: pulse var(--transition-normal) ease-in-out;
+}
+
+.shake {
+  animation: shake var(--transition-fast) ease-in-out;
+}
+
+.rotate {
+  animation: rotate 2s linear infinite;
+}
+
+/* Screen Transitions */
+.screen.entering {
+  animation: fadeIn var(--transition-normal) ease forwards;
+}
+
+.screen.exiting {
+  animation: fadeOut var(--transition-normal) ease forwards;
+}
+
+/* Option Answer Animations */
+.option-item.correct-answer {
+  animation: pulse var(--transition-normal) ease-in-out;
+}
+
+.option-item.wrong-answer {
+  animation: shake var(--transition-fast) ease-in-out;
+}
+
+/* Topic Card Hover Animation */
+.topic-card:hover .topic-icon {
+  animation: pulse var(--transition-slow) ease-in-out;
+}
+
+/* Timer Warning Animation */
+.quiz-timer.warning {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* Score Circle Animation */
+.animate-score-fill {
+  animation: scoreRise 1.5s ease-out forwards;
+}
+
+@keyframes scoreRise {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--score-height);
+  }
+}
+
+/* Hint Reveal Animation */
+.hint-content.active {
+  animation: slideDown var(--transition-normal) ease forwards;
+}
+
+/* Feedback Show Animation */
+.feedback-container.active {
+  animation: slideUp var(--transition-normal) ease forwards;
+}
+
+/* Button Hover Effects */
+.btn-primary:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled),
+.btn-outline:hover:not(:disabled),
+.btn-danger:hover:not(:disabled) {
+  transform: translateY(-2px);
+  transition: transform var(--transition-fast) ease;
+}
+
+.btn-primary:active:not(:disabled),
+.btn-secondary:active:not(:disabled),
+.btn-outline:active:not(:disabled),
+.btn-danger:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Next Question Transition */
+.question-container.changing {
+  animation: fadeOut var(--transition-fast) ease forwards;
+}
+
+.question-container.new {
+  animation: fadeIn var(--transition-fast) ease forwards;
+}
+
+/* Progress Bar Animation */
+.progress-fill.animated {
+  transition: width 0.5s ease-out;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: rotate 1s linear infinite;
+}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathMind Quiz</title>
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/components.css">
+  <link rel="stylesheet" href="./styles/animations.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-content">
+        <h1 class="app-title">MathMind</h1>
+        <div class="header-actions">
+          <button id="historyBtn" class="btn btn-secondary">
+            <span class="icon">📊</span> History
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Welcome Screen -->
+      <section id="welcomeScreen" class="screen active">
+        <div class="welcome-container">
+          <div class="logo-container">
+            <div class="logo">
+              <span class="logo-text">M</span>
+            </div>
+          </div>
+          <h2 class="welcome-title">Welcome to MathMind</h2>
+          <p class="welcome-text">Challenge yourself with mathematics quizzes ranging from basic arithmetic to advanced calculus.</p>
+          <div class="action-container">
+            <button id="startQuizBtn" class="btn btn-primary">Start New Quiz</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Topic Selection Screen -->
+      <section id="topicScreen" class="screen">
+        <div class="screen-header">
+          <h2 class="screen-title">Select a Topic</h2>
+        </div>
+        <div class="topics-container">
+          <div class="topic-card" data-topic="algebra">
+            <div class="topic-icon">∑</div>
+            <h3 class="topic-title">Algebra</h3>
+            <p class="topic-description">Equations, inequalities, and functions</p>
+          </div>
+          <div class="topic-card" data-topic="geometry">
+            <div class="topic-icon">△</div>
+            <h3 class="topic-title">Geometry</h3>
+            <p class="topic-description">Shapes, areas, and spatial reasoning</p>
+          </div>
+          <div class="topic-card" data-topic="calculus">
+            <div class="topic-icon">∫</div>
+            <h3 class="topic-title">Calculus</h3>
+            <p class="topic-description">Derivatives, integrals, and limits</p>
+          </div>
+          <div class="topic-card" data-topic="statistics">
+            <div class="topic-icon">μ</div>
+            <h3 class="topic-title">Statistics</h3>
+            <p class="topic-description">Data analysis and probability</p>
+          </div>
+        </div>
+        <div class="difficulty-container">
+          <h3 class="difficulty-title">Select Difficulty</h3>
+          <div class="difficulty-options">
+            <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="advanced">Advanced</button>
+          </div>
+        </div>
+        <div class="action-container">
+          <button id="backToWelcomeBtn" class="btn btn-secondary">Back</button>
+          <button id="startSelectedQuizBtn" class="btn btn-primary">Start Quiz</button>
+        </div>
+      </section>
+
+      <!-- Quiz Screen -->
+      <section id="quizScreen" class="screen">
+        <div class="quiz-header">
+          <div class="quiz-info">
+            <span id="quizTopic" class="quiz-topic">Topic</span>
+            <span id="quizDifficulty" class="quiz-difficulty">Difficulty</span>
+          </div>
+          <div class="quiz-progress">
+            <div id="progressBar" class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <div id="questionCounter" class="question-counter">Question 1/10</div>
+          </div>
+          <div class="quiz-timer">
+            <span class="timer-icon">⏱️</span>
+            <span id="timerDisplay">00:00</span>
+          </div>
+        </div>
+        <div class="quiz-content">
+          <div class="question-container">
+            <h3 id="questionText" class="question-text">Question goes here...</h3>
+            <div id="questionMath" class="question-math"></div>
+            <div id="hintContainer" class="hint-container">
+              <button id="showHintBtn" class="btn btn-outline">Show Hint</button>
+              <div id="hintContent" class="hint-content">
+                <h4 class="hint-title">Hint:</h4>
+                <p id="hintText" class="hint-text"></p>
+                <div id="hintFormula" class="hint-formula"></div>
+              </div>
+            </div>
+          </div>
+          <div id="optionsContainer" class="options-container">
+            <!-- Options will be inserted here by JavaScript -->
+          </div>
+          <div id="feedbackContainer" class="feedback-container">
+            <div id="feedbackContent" class="feedback-content">
+              <div id="feedbackIcon" class="feedback-icon"></div>
+              <h4 id="feedbackTitle" class="feedback-title"></h4>
+              <p id="feedbackText" class="feedback-text"></p>
+              <div id="feedbackFormula" class="feedback-formula"></div>
+            </div>
+          </div>
+        </div>
+        <div class="quiz-actions">
+          <button id="quitQuizBtn" class="btn btn-secondary">Quit</button>
+          <button id="nextQuestionBtn" class="btn btn-primary" disabled>Next</button>
+        </div>
+      </section>
+
+      <!-- Results Screen -->
+      <section id="resultsScreen" class="screen">
+        <div class="results-container">
+          <h2 class="results-title">Quiz Results</h2>
+          <div class="score-container">
+            <div class="score-circle">
+              <span id="scorePercentage">0%</span>
+              <span id="scoreValue">0/0</span>
+            </div>
+            <div class="score-details">
+              <div class="score-item">
+                <span class="score-label">Correct</span>
+                <span id="correctAnswers" class="score-value">0</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Incorrect</span>
+                <span id="incorrectAnswers" class="score-value">0</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Time</span>
+                <span id="totalTime" class="score-value">00:00</span>
+              </div>
+            </div>
+          </div>
+          <div class="results-actions">
+            <button id="reviewQuestionsBtn" class="btn btn-secondary">Review Questions</button>
+            <button id="retryQuizBtn" class="btn btn-primary">Retry Quiz</button>
+            <button id="newQuizBtn" class="btn btn-outline">New Quiz</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- History Screen -->
+      <section id="historyScreen" class="screen">
+        <div class="screen-header">
+          <h2 class="screen-title">Quiz History</h2>
+        </div>
+        <div id="historyContainer" class="history-container">
+          <!-- History items will be added here by JavaScript -->
+        </div>
+        <div class="action-container">
+          <button id="clearHistoryBtn" class="btn btn-danger">Clear History</button>
+          <button id="backFromHistoryBtn" class="btn btn-primary">Back</button>
+        </div>
+      </section>
+
+      <!-- Review Questions Screen -->
+      <section id="reviewScreen" class="screen">
+        <div class="screen-header">
+          <h2 class="screen-title">Review Questions</h2>
+        </div>
+        <div id="reviewContainer" class="review-container">
+          <!-- Review items will be added here by JavaScript -->
+        </div>
+        <div class="action-container">
+          <button id="backToResultsBtn" class="btn btn-primary">Back to Results</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>&copy; 2025 MathMind Quiz</p>
+    </footer>
+  </div>
+
+  <script src="./scripts/storage.js"></script>
+  <script src="./scripts/questions.js"></script>
+  <script src="./scripts/topics.js"></script>
+  <script src="./scripts/quiz.js"></script>
+  <script src="./scripts/ui.js"></script>
+  <script src="./scripts/math.js"></script>
+  <script src="./scripts/main.js"></script>
+</body>
+</html>

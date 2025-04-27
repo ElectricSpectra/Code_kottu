@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
+:root {
+    --primary-color: #FF6B6B;
+    --secondary-color: #4ECDC4;
+    --accent-color: #FFE66D;
+    --text-color: #2C3E50;
+    --background-color: #1A1A2E;
+    --overlay-color: rgba(26, 26, 46, 0.95);
+    --team-card-bg: #292946;
+    --transition-speed: 0.3s;
+    --gradient-1: linear-gradient(45deg, #FF6B6B, #FF8E53);
+    --gradient-2: linear-gradient(45deg, #4ECDC4, #45B7AF);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,128 +20,423 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #000;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
     color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
+    background-color: var(--background-color);
+    overflow-x: hidden;
 }
 
-.credits-container {
-    width: 100%;
-    max-width: 800px;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-    padding: 20px;
-}
-
-.credits-content {
-    text-align: center;
-    transform: translateY(100%);
-}
-
-.logo {
-    margin-bottom: 60px;
-}
-
-.logo h1 {
-    font-size: 48px;
-    color: #ffd700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-.credit-section {
-    margin-bottom: 60px;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.credit-section h2 {
-    font-size: 36px;
-    color: #fff;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.team-member {
-    margin-bottom: 20px;
-}
-
-.team-member h3 {
-    font-size: 24px;
-    color: #ffd700;
-    margin-bottom: 5px;
-}
-
-.team-member p {
-    font-size: 18px;
-    color: #fff;
-}
-
-footer {
-    margin-top: 60px;
-    padding: 20px;
-    font-size: 14px;
-    opacity: 0.7;
-}
-
-.restart-btn {
+/* Enhanced Cursor Effects */
+.cursor-trail {
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 230, 109, 0.4);
+    border-radius: 50%;
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: #ffd700;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+}
+
+.cursor-trail:nth-child(1) { transition: all 0.1s ease; }
+.cursor-trail:nth-child(2) { transition: all 0.2s ease; background: rgba(255, 107, 107, 0.4); }
+.cursor-trail:nth-child(3) { transition: all 0.3s ease; background: rgba(78, 205, 196, 0.4); }
+.cursor-trail:nth-child(4) { transition: all 0.4s ease; background: rgba(255, 230, 109, 0.3); }
+.cursor-trail:nth-child(5) { transition: all 0.5s ease; background: rgba(255, 107, 107, 0.2); }
+
+.cursor-trail.active {
+    width: 50px;
+    height: 50px;
     transition: all 0.3s ease;
-    z-index: 100;
 }
 
-.restart-btn:hover {
-    background-color: #fff;
-    transform: translateX(-50%) scale(1.05);
+/* Photo Interaction Effects */
+.photo-interaction {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
 }
 
-.restart-btn:active {
-    transform: translateX(-50%) scale(0.95);
+.photo-interaction.active {
+    display: block;
 }
 
-/* Animation class */
-.scrolling {
-    animation: scrollCredits 20s linear forwards;
+.heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatHeart 2s ease-in-out forwards;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
 }
 
-@keyframes scrollCredits {
-    from {
-        transform: translateY(100%);
+.sparkle-effect {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    animation: sparkleOut 1.5s ease-out forwards;
+}
+
+.celebration-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    padding: 2rem 4rem;
+    border-radius: 20px;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    z-index: 1001;
+    opacity: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--accent-color);
+}
+
+.celebration-message.active {
+    animation: messagePopup 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.celebration-message.hiding {
+    animation: messagePopdown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* New Animations */
+@keyframes floatHeart {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
     }
-    to {
-        transform: translateY(-100%);
-    }
-}
-
-@keyframes fadeIn {
-    from {
+    100% {
+        transform: translate(var(--end-x), var(--end-y)) scale(0);
         opacity: 0;
     }
-    to {
+}
+
+@keyframes sparkleOut {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes messagePopup {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
 }
 
-/* Add animation delays to sections */
-.credit-section:nth-child(1) { --delay: 0; }
-.credit-section:nth-child(2) { --delay: 1; }
-.credit-section:nth-child(3) { --delay: 2; }
-.credit-section:nth-child(4) { --delay: 3; } 
+@keyframes messagePopdown {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Enhanced Team Photo Interaction */
+.team-photo-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.team-photo-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), 
+                rgba(255, 230, 109, 0.2), 
+                transparent 100px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.team-photo-container:hover::after {
+    opacity: 1;
+}
+
+/* Welcome Overlay */
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, 
+        rgba(26, 26, 46, 0.95) 0%,
+        rgba(26, 26, 46, 0.98) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.welcome-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.1;
+}
+
+/* Logo Styles */
+.team-logo-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+.logo-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    animation: rotateLogo 10s linear infinite;
+}
+
+.logo-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 85%;
+    background: var(--team-card-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.logo-sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    animation: sparkleAnim 2s linear infinite;
+}
+
+/* Main Content Container */
+.credits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.credits-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Credit Sections */
+.credit-section {
+    margin: 4rem 0;
+    padding: 2rem;
+    background: var(--team-card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.credit-section.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.credit-section h2 {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Team Photo Section */
+.team-photo-section {
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--team-card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.team-photo-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-photo-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(255, 107, 107, 0.4);
+}
+
+.team-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+}
+
+.team-photo-container:hover .team-photo {
+    transform: scale(1.02);
+}
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(26, 26, 46, 0.9));
+    padding: 2rem;
+    color: var(--accent-color);
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.team-photo-container:hover .photo-overlay {
+    transform: translateY(0);
+}
+
+/* Animations */
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes rotateLogo {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes sparkleAnim {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; }
+}
+
+@keyframes borderRotate {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 130% 0%; }
+}
+
+/* Interactive Elements */
+.interactive-hover {
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.interactive-hover:hover {
+    transform: translateZ(20px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .team-logo-container {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .credit-section {
+        padding: 1.5rem;
+    }
+    
+    .team-photo-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-logo-container {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .credit-section {
+        padding: 1rem;
+        margin: 2rem 0;
+    }
+    
+    .photo-overlay {
+        padding: 1rem;
+    }
+}

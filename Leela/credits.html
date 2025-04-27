@@ -3,57 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Kottu - Credits</title>
+    <title>Code Kottu Team Credits</title>
     <link rel="stylesheet" href="credits.css">
 </head>
 <body>
-    <div class="credits-container">
-        <div class="credits-content">
-            <div class="logo">
-                <h1>Code Kottu</h1>
-            </div>
+    <!-- Cursor Trail Elements -->
+    <div class="cursor-trail"></div>
+    <div class="cursor-trail"></div>
+    <div class="cursor-trail"></div>
+    <div class="cursor-trail"></div>
+    <div class="cursor-trail"></div>
 
-            <div class="credit-section">
-                <h2>Leadership Team</h2>
-                <div class="team-member">
-                    <h3>Team Lead</h3>
-                    <p>Sohan</p>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay">
+        <div class="logo">
+            <div class="team-logo-container">
+                <div class="logo-circle"></div>
+                <div class="logo-inner">
+                    <div class="logo-text">
+                        Code<br>Kottu
+                    </div>
                 </div>
-                <div class="team-member">
-                    <h3>Vice Lead</h3>
-                    <p>Saahil</p>
-                </div>
+                <!-- Add sparkles -->
+                <div class="logo-sparkle" style="top: 10%; left: 50%;"></div>
+                <div class="logo-sparkle" style="top: 50%; right: 10%;"></div>
+                <div class="logo-sparkle" style="bottom: 20%; left: 10%;"></div>
             </div>
-
-            <div class="credit-section">
-                <h2>Development Team</h2>
-                <div class="team-member">
-                    <h3>Developer</h3>
-                    <p>Leeladhar</p>
-                </div>
-                <div class="team-member">
-                    <h3>Frontend Developer</h3>
-                    <p>Sunil</p>
-                </div>
-                <div class="team-member">
-                    <h3>Full Stack Developer</h3>
-                    <p>Prakash</p>
-                </div>
-            </div>
-
-            <div class="credit-section">
-                <h2>Special Thanks</h2>
-                <p>To all our supporters, testers, and community members</p>
-            </div>
-
-            <footer>
-                <p>&copy; 2024 Code Kottu. All rights reserved.</p>
-            </footer>
         </div>
+        <h1 class="tagline">Making Learning Fun and Interactive! 🚀</h1>
     </div>
 
-    <button class="restart-btn">Restart Credits</button>
+    <!-- Main Credits Container -->
+    <div class="credits-container">
+        <!-- Team Photo Section -->
+        <section class="credit-section team-photo-section">
+            <h2>Meet Our Team</h2>
+            <div class="team-photo-container">
+                <img src="https://media-hosting.imagekit.io/3284cfc01e814818/code%20kottu.jpg?Expires=1840359238&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=lnzizfI8nDXPQMxG0v7yjTbpapAS4yvwsxJ7prjDJyWNZVLT6mPHalHhcHwbBr2gcCQjZJugLLkLKB9mLmmCxE8KtFnx83Lv0emw2Hdbbgn-oRh7xP4d~Pn0bk1gjtM3VqLcTF46-bg62bcn5VF0cwyCXSyQmdkHcM~Vgss8Xu6doXjLMcwOMmro7e1TsV6KXlpvDkYjxMtqo-t4mtQ49TWkDjuyiPnccP0MCaiG8UuZ2HD6GHGVwpUks0h5lIbjftbgQi3OS44mzr6uTUprvJUREejGR1QqPzUOD-EIJxTSpFRV7X6Y3o~k2qzPUXPxh9WcGIHId0QkkrkXx7eOAg__" alt="Code Kottu Team" class="team-photo">
+                <div class="photo-overlay">
+                    <p>Code Kottu Team - Building the Future of Education</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Information -->
+        <section class="credit-section project-info">
+            <h2>Code Kottu Learning Platform</h2>
+            <p class="version">Team Recap 2024</p>
+            <p class="description">Revolutionizing education through interactive learning experiences</p>
+        </section>
+
+        <!-- Core Team -->
+        <section class="credit-section team">
+            <h2>Our Amazing Team</h2>
+            <div class="team-grid">
+                <div class="team-member" data-name="Sohan">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h3>Sohan</h3>
+                    <p>Team Lead</p>
+                    <div class="member-quote">"Innovating education for tomorrow"</div>
+                </div>
+                <div class="team-member" data-name="Saahil">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h3>Saahil</h3>
+                    <p>Vice Lead</p>
+                    <div class="member-quote">"Crafting engaging learning experiences"</div>
+                </div>
+                <div class="team-member" data-name="Prakash">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h3>Prakash</h3>
+                    <p>Backend Developer</p>
+                    <div class="member-quote">"Building robust learning systems"</div>
+                </div>
+                <div class="team-member" data-name="Sunil">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h3>Sunil</h3>
+                    <p>Full Stack Developer</p>
+                    <div class="member-quote">"Creating seamless educational platforms"</div>
+                </div>
+                <div class="team-member" data-name="Leeladhar">
+                    <div class="member-avatar">📊</div>
+                    <h3>Leeladhar</h3>
+                    <p>Data Analyst</p>
+                    <div class="member-quote">"Transforming learning through data insights"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Features -->
+        <section class="credit-section features">
+            <h2>Platform Features</h2>
+            <div class="features-grid">
+                <div class="feature-item" data-feature="kids-mode">
+                    <span class="feature-icon">👶</span>
+                    <h3>Kids Mode</h3>
+                    <p>Child-friendly interface with engaging learning activities</p>
+                </div>
+                <div class="feature-item" data-feature="block-viz">
+                    <span class="feature-icon">🧊</span>
+                    <h3>Block Visualization</h3>
+                    <p>Interactive visual learning blocks for better understanding</p>
+                </div>
+                <div class="feature-item" data-feature="advanced">
+                    <span class="feature-icon">🎓</span>
+                    <h3>Advanced Mode</h3>
+                    <p>Challenging content for advanced learners</p>
+                </div>
+                <div class="feature-item" data-feature="math">
+                    <span class="feature-icon">🔢</span>
+                    <h3>Master Math</h3>
+                    <p>Comprehensive mathematics learning module</p>
+                </div>
+                <div class="feature-item" data-feature="ai-quiz">
+                    <span class="feature-icon">🤖</span>
+                    <h3>AI Quiz Generator</h3>
+                    <p>Smart quizzes tailored to each student</p>
+                </div>
+                <div class="feature-item" data-feature="tracking">
+                    <span class="feature-icon">📈</span>
+                    <h3>Progress Tracking</h3>
+                    <p>Detailed learning progress analytics</p>
+                </div>
+                <div class="feature-item" data-feature="leaderboard">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Leaderboard</h3>
+                    <p>Competitive learning environment</p>
+                </div>
+                <div class="feature-item" data-feature="explanations">
+                    <span class="feature-icon">💡</span>
+                    <h3>Smart Explanations</h3>
+                    <p>Detailed explanations for every question</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Innovation Highlights -->
+        <section class="credit-section achievements">
+            <h2>Platform Achievements</h2>
+            <ul class="achievement-list">
+                <li data-achievement="Innovation">🏆 Revolutionary Learning Experience</li>
+                <li data-achievement="AI">⭐ Advanced AI Integration</li>
+                <li data-achievement="Analytics">🌟 Data-Driven Learning Insights</li>
+                <li data-achievement="Impact">🎉 Enhanced Student Engagement</li>
+            </ul>
+        </section>
+
+        <!-- Learning Values -->
+        <section class="credit-section values">
+            <h2>Our Learning Philosophy</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <span class="value-icon">🎮</span>
+                    <h3>Interactive</h3>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">🧠</span>
+                    <h3>Adaptive</h3>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">📱</span>
+                    <h3>Accessible</h3>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">🌱</span>
+                    <h3>Growth</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="credits-footer">
+            <div class="team-motto">"Transforming learning, one student at a time!"</div>
+            <button class="restart-btn">Replay Platform Showcase</button>
+            <p class="copyright">© 2024 Code Kottu Learning Platform. All rights reserved.</p>
+        </footer>
+    </div>
 
     <script src="credits.js"></script>
+    <script>
+        // Cursor trail effect
+        const trails = document.querySelectorAll('.cursor-trail');
+        let mouseX = 0, mouseY = 0;
+        let trailIndex = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateTrails() {
+            const trail = trails[trailIndex];
+            trail.style.left = mouseX + 'px';
+            trail.style.top = mouseY + 'px';
+            
+            trailIndex = (trailIndex + 1) % trails.length;
+            
+            requestAnimationFrame(animateTrails);
+        }
+
+        animateTrails();
+
+        // Interactive hover effect
+        document.querySelectorAll('.interactive-hover').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                element.style.setProperty('--rotate-x', rotateX + 'deg');
+                element.style.setProperty('--rotate-y', rotateY + 'deg');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.setProperty('--rotate-x', '0deg');
+                element.style.setProperty('--rotate-y', '0deg');
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>
